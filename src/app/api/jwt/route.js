@@ -18,7 +18,13 @@ export async function POST(req, res) {
 
     // You'll be sending the public one to ShipEngine
     // in exchange for a keyId.
-    const secretKey = fs.readFileSync('certs/private.pem', 'utf-8');
+    let secretKey;
+
+    if (process.env.PRIVATE_PEM) {
+      secretKey = process.env.PRIVATE_PEM;
+    } else {
+      secretKey = fs.readFileSync('certs/private.pem', 'utf-8');
+    }
     
     if (!secretKey) throw new Error('Missing secret key');
     
