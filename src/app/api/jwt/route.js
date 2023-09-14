@@ -11,6 +11,13 @@ export async function POST(req, res) {
       tenant: body.sellerId,
     };
     
+    // Run these 2 commands in the "certs" directory to generate keys:
+    
+    // openssl genrsa -out private.pem 2048
+    // openssl rsa -in private.pem -outform PEM -pubout -out $(date -Idate)-public.pem
+
+    // You'll be sending the public one to ShipEngine
+    // in exchange for a keyId.
     const secretKey = fs.readFileSync('certs/private.pem', 'utf-8');
     
     if (!secretKey) throw new Error('Missing secret key');
