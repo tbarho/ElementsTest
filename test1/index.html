@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script type="module" charset="UTF-8">
+          import {ElementsSDK} from 'https://cdn.shipengine.com/0.mjs';
+          const HARDCODED = {
+              baseURL: "https://elements-staging.shipengine.com",
+              brandName: 'Ink.Works - Development - Product',
+              onError: () => alert('beep'),
+              token: 'iCVYNMOetO6qIU3pXM0JMuhRE81QUYh9Lzbo9giU/PQ',
+          };
+          window.eSDK = new ElementsSDK(HARDCODED.token, HARDCODED);
+          window.eClient = window.eSDK.getClient(HARDCODED.token, {
+              baseURL: HARDCODED.baseURL,
+              getToken: () => HARDCODED.token,
+          });
+          console.log(await eClient.carriers.list());
+          // window.eSDK.onboardUser(
+          //     {
+          //         onCompleteOnboarding: () => {
+          //             alert("Onboarding Complete!");
+          //             window.eSDK.closeSidePanel();
+          //         },
+          //     },
+          //     {},
+          //     {
+          //         closeButtonTooltip: "Close",
+          //         onClickClose: () => {
+          //             alert("side panel closed!");
+          //             window.eSDK.closeSidePanel();
+          //         },
+          //         title: "Onboarding",
+          //     }
+          // );
+    </script>
+  </head>
+  <body>
+    <h4>Basic Elements</h4>
+  </body>
+</html>
