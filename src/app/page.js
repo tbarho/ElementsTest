@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ElementsSDK } from 'https://cdn.shipengine.com/0.mjs';
+
 
 // fetch token from local api/jwt route
 async function getToken() {
@@ -30,6 +30,9 @@ export default function Home() {
 
   useEffect(() => {
     async function testElements() {
+      setNetworkStatus('Loading Elements SDK...');
+      const { ElementsSDK } = await import('https://cdn.shipengine.com/0.mjs')
+      
       setNetworkStatus('Fetching token...');
       const token = await getToken();
       const baseURL = 'https://elements-staging.shipengine.com';
