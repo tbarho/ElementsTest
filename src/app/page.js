@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 
 // fetch token from local api/jwt route
@@ -23,6 +23,8 @@ async function getToken() {
 export default function Home() {
   const [networkStatus, _setNetworkStatus] = useState('Loading...');
   const [error, setError] = useState(null);
+  const [sdk, setSdk] = useState(null);
+  const [json, setJson] = useState(null);
 
   function setNetworkStatus(status) {
     _setNetworkStatus((networkStatus) => `${networkStatus}\n${status}`);
@@ -49,31 +51,41 @@ export default function Home() {
         onError,
       });
 
-      setNetworkStatus('Initializing Elements Client...');
-      const eClient = eSDK.getClient(token, {
-        baseURL,
-        getToken,
-      });
-
-      setNetworkStatus('Fetching carriers...');
-
-      try {
-        const carriers = await eClient.carriers.list();
-        console.log({ carriers });
-      } catch (e) {
-        
-        setError('Something went wrong.  Check the console for more details.');
-      }
+      setNetworkStatus('Setting SDK...');
+      setSdk(eSDK);
     }
 
     testElements();
   }, []);
+
+  const onboardUser = useCallback(() => {
+    console.log('click');
+    if (!sdk) {
+      return;
+    }
+
+    console.log('i have an sdk... trying')
+    console.log(sdk);
+
+    sdk.onboardUser({
+      onCompleteOnboarding() {
+        setNetworkStatus('On Boarding Completed.');
+      }
+    }, {}, {
+      onClickClose() {
+        sdk.closeSidePanel();
+      }
+    })
+  }, [sdk])
 
   return (
     <main className="max-w-7xl p-20">
       <pre className="bg-zinc-900 text-zinc-300 p-4 rounded-lg">
         {networkStatus}
       </pre>
+      {sdk ? (
+        <button onClick={onboardUser} className="mt-12 rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Onboard User</button>
+      ) : null}
       {error && (
         <pre className="bg-red-900 text-red-300 p-4 rounded-lg mt-10">{error}</pre>
       )}
