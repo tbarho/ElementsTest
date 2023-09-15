@@ -4,11 +4,12 @@ import { sign } from 'jsonwebtoken';
 
 export async function POST(req, res) {
   try {
-    const body = await req.json();
+    // const body = await req.json();
     
     const payload = {
       partner: process.env.SHIPENGINE_PARTNER_ID,
-      tenant: body.sellerId,
+      tenant: `${process.env.TENANT_ID}`,
+      scope: `${process.env.SCOPE}`
     };
     
     // Run these 2 commands in the "certs" directory to generate keys:
