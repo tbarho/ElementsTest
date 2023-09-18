@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>Plain</title>
+    <script type="module" charset="UTF-8">
+      import {ElementsSDK} from 'https://cdn.shipengine.com/0.mjs';
+
+      const HARDCODED = {
+          baseURL: "https://elements-staging.shipengine.com",
+          brandName: 'paypal',
+          onError: () => alert('beep'),
+          token:
+          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjIwMjMtMDktMTQtaW5rd29ya3MtcHJvZCJ9.eyJwYXJ0bmVyIjoiMzY0OSIsInRlbmFudCI6IjU3MDAwNzUiLCJzY29wZSI6ImVsZW1lbnRzLWlua3dvcmtzIiwiaWF0IjoxNjk0ODEwMDY0LCJleHAiOjE2OTQ4MTM2NjQsImlzcyI6Ikluay5Xb3JrcyAtIERldmVsb3BtZW50IC0gUHJvZHVjdCJ9.r2cGWejxdJsRK9JPFX8Vb80Lb3Isy_EkCLej_wrgJjAcHqM1VCzELzZJNbOstjNDArEHbfskfeMDN3ijq3D350CyYVH191XzvzUEG7ZXqafAAuKtNRBDxxgfllYwTFCG70v5uc0Ay4mC2jlLvTXDeYLOkc-s0kHQalb97AZ9Z1iaW0H9cP4Bc1kCK2pt3qfYTM-afiSSedOC9_5hDfochgXLOc-UOGZUdMcNGhFy9gMEQqIZB-pNhGr3v0mBRLK4uZbq_RwhKaSSZypH02lUUtWBz1iq-UDJx0szuF81yeCT-_PUP739TUa897A_FbPusmr3Dit2jvAKFXXD84PQAg"
+      };
+
+      window.eSDK = new ElementsSDK(() => HARDCODED.token, HARDCODED);
+      window.eClient = window.eSDK.getClient(HARDCODED.token, {
+          baseURL: HARDCODED.baseURL,
+          getToken: () => HARDCODED.token,
+      });
+
+      // console.log(await eClient.carriers.list());
+
+      window.eSDK.onboardUser(
+          {
+              onCompleteOnboarding: () => {
+                  alert("Onboarding Complete!");
+                  window.eSDK.closeSidePanel();
+              },
+          },
+          {},
+          {
+              closeButtonTooltip: "Close",
+              onClickClose: () => {
+                  alert("side panel closed!");
+                  window.eSDK.closeSidePanel();
+              },
+              title: "Onboarding",
+          }
+      );
+  </script>
+</head>
+<body>
+    <h1>Plain</h1>
+    <p>Plain text</p>
+</body>
+</html>

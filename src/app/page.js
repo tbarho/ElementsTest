@@ -38,7 +38,7 @@ export default function Home() {
       setNetworkStatus('Fetching token...');
       const token = await getToken();
       const baseURL = 'https://elements-staging.shipengine.com';
-      const brandName = 'Ink.Works - Development - Product';
+      // const brandName = 'paypal';
 
       function onError() {
         alert('error');
@@ -47,12 +47,13 @@ export default function Home() {
       setNetworkStatus('Initializing Elements SDK...');
       const eSDK = new ElementsSDK(token, {
         baseURL,
-        brandName,
+        // brandName,
         onError,
       });
 
       setNetworkStatus('Setting SDK...');
       setSdk(eSDK);
+      window.sdk = eSDK;
     }
 
     testElements();
@@ -60,14 +61,14 @@ export default function Home() {
 
   const onboardUser = useCallback(() => {
     console.log('click');
-    if (!sdk) {
+    if (!window.sdk) {
       return;
     }
 
     console.log('i have an sdk... trying')
     console.log(sdk);
 
-    sdk.onboardUser({
+    window.sdk.onboardUser({
       onCompleteOnboarding() {
         setNetworkStatus('On Boarding Completed.');
       }
@@ -76,7 +77,7 @@ export default function Home() {
         sdk.closeSidePanel();
       }
     })
-  }, [sdk])
+  }, [window.sdk])
 
   return (
     <main className="max-w-7xl p-20">
