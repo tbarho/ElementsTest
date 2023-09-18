@@ -5,11 +5,11 @@
       import {ElementsSDK} from 'https://cdn.shipengine.com/0.mjs';
 
       const HARDCODED = {
-          baseURL: "https://elements-staging.shipengine.com",
-          brandName: 'paypal',
+          baseURL: "https://elements.shipengine.com",
+          // brandName: 'paypal',
           onError: () => alert('beep'),
           token:
-          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjIwMjMtMDktMTQtaW5rd29ya3MtcHJvZCJ9.eyJwYXJ0bmVyIjoiMzY0OSIsInRlbmFudCI6IjU3MDAwNzUiLCJzY29wZSI6ImVsZW1lbnRzLWlua3dvcmtzIiwiaWF0IjoxNjk0ODEwMDY0LCJleHAiOjE2OTQ4MTM2NjQsImlzcyI6Ikluay5Xb3JrcyAtIERldmVsb3BtZW50IC0gUHJvZHVjdCJ9.r2cGWejxdJsRK9JPFX8Vb80Lb3Isy_EkCLej_wrgJjAcHqM1VCzELzZJNbOstjNDArEHbfskfeMDN3ijq3D350CyYVH191XzvzUEG7ZXqafAAuKtNRBDxxgfllYwTFCG70v5uc0Ay4mC2jlLvTXDeYLOkc-s0kHQalb97AZ9Z1iaW0H9cP4Bc1kCK2pt3qfYTM-afiSSedOC9_5hDfochgXLOc-UOGZUdMcNGhFy9gMEQqIZB-pNhGr3v0mBRLK4uZbq_RwhKaSSZypH02lUUtWBz1iq-UDJx0szuF81yeCT-_PUP739TUa897A_FbPusmr3Dit2jvAKFXXD84PQAg"
+          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjIwMjMtMDktMTQtaW5rd29ya3MtcHJvZCJ9.eyJwYXJ0bmVyIjoiMzY0OSIsInRlbmFudCI6IjU3MDAwNzUiLCJzY29wZSI6ImVsZW1lbnRzLWlua3dvcmtzIiwiaWF0IjoxNjk1MDYzMjM4LCJleHAiOjE2OTUwNjY4MzgsImlzcyI6Imlua3dvcmtzIn0.JZJlt_aaFtXO08HGTSWOVIuULswwrYQYVi-XNAiSFRxLfzrI7Ml425ivwJYjPFhGMfv8gQ1bjHezzwYV_wIDCfj_wCDRxk-bX2Ap4BZcFFtroVGcgNc7U4vcDZE5LxWh1_xalQkMZpdLCDqB2yUAG_3gjCxfc7OkFmE-ufJvArxn5ytpzGCxO8K8cpT1h3vDu-DuQppVVjyTEoGqDL2ufXhHjlyXjfd-kp7wg_f9OocxFU8GFwcZ5bT9VZ3lI_1gWOGvw5ivFroAxwY2CqFxY3Zw21MnVboP6sxbNCotz_KaYiYH0ee18yaPJQPMuiUZgl0UFfQeYoo0YcMkgA3wdg"
       };
 
       window.eSDK = new ElementsSDK(() => HARDCODED.token, HARDCODED);
@@ -18,7 +18,7 @@
           getToken: () => HARDCODED.token,
       });
 
-      // console.log(await eClient.carriers.list());
+      console.log(await eClient.carriers.list());
 
       window.eSDK.onboardUser(
           {

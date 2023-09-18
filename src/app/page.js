@@ -37,7 +37,7 @@ export default function Home() {
       
       setNetworkStatus('Fetching token...');
       const token = await getToken();
-      const baseURL = 'https://elements-staging.shipengine.com';
+      const baseURL = 'https://elements.shipengine.com';
       // const brandName = 'paypal';
 
       function onError() {
@@ -45,7 +45,7 @@ export default function Home() {
       }
 
       setNetworkStatus('Initializing Elements SDK...');
-      const eSDK = new ElementsSDK(token, {
+      const eSDK = new ElementsSDK(() => token, {
         baseURL,
         // brandName,
         onError,
@@ -53,22 +53,17 @@ export default function Home() {
 
       setNetworkStatus('Setting SDK...');
       setSdk(eSDK);
-      window.sdk = eSDK;
     }
 
     testElements();
   }, []);
 
   const onboardUser = useCallback(() => {
-    console.log('click');
-    if (!window.sdk) {
+    if (!sdk) {
       return;
     }
 
-    console.log('i have an sdk... trying')
-    console.log(sdk);
-
-    window.sdk.onboardUser({
+    sdk.onboardUser({
       onCompleteOnboarding() {
         setNetworkStatus('On Boarding Completed.');
       }
@@ -77,7 +72,7 @@ export default function Home() {
         sdk.closeSidePanel();
       }
     })
-  }, [window.sdk])
+  }, [sdk])
 
   return (
     <main className="max-w-7xl p-20">
