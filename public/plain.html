@@ -1,46 +1,55 @@
 <html>
-<head>
+  <head>
     <title>Plain</title>
     <script type="module" charset="UTF-8">
-      import {ElementsSDK} from 'https://cdn.shipengine.com/0.mjs';
+      import { ElementsSDK } from 'https://cdn.shipengine.com/0.mjs';
+
+      const tokenRes = await fetch('/api/jwt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ sellerId: 1234 })
+      });
+
+      const token = await tokenRes.json()
 
       const HARDCODED = {
-          baseURL: "https://elements.shipengine.com",
-          // brandName: 'paypal',
-          onError: () => alert('beep'),
-          token:
-          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjIwMjMtMDktMTQtaW5rd29ya3MtcHJvZCJ9.eyJwYXJ0bmVyIjoiMzY0OSIsInRlbmFudCI6IjU3MDAwNzUiLCJzY29wZSI6ImVsZW1lbnRzLWlua3dvcmtzIiwiaWF0IjoxNjk1MDYzMjM4LCJleHAiOjE2OTUwNjY4MzgsImlzcyI6Imlua3dvcmtzIn0.JZJlt_aaFtXO08HGTSWOVIuULswwrYQYVi-XNAiSFRxLfzrI7Ml425ivwJYjPFhGMfv8gQ1bjHezzwYV_wIDCfj_wCDRxk-bX2Ap4BZcFFtroVGcgNc7U4vcDZE5LxWh1_xalQkMZpdLCDqB2yUAG_3gjCxfc7OkFmE-ufJvArxn5ytpzGCxO8K8cpT1h3vDu-DuQppVVjyTEoGqDL2ufXhHjlyXjfd-kp7wg_f9OocxFU8GFwcZ5bT9VZ3lI_1gWOGvw5ivFroAxwY2CqFxY3Zw21MnVboP6sxbNCotz_KaYiYH0ee18yaPJQPMuiUZgl0UFfQeYoo0YcMkgA3wdg"
+        baseURL: 'https://elements.shipengine.com',
+        // brandName: 'paypal',
+        onError: () => alert('beep'),
+        token
       };
 
       window.eSDK = new ElementsSDK(() => HARDCODED.token, HARDCODED);
       window.eClient = window.eSDK.getClient(HARDCODED.token, {
-          baseURL: HARDCODED.baseURL,
-          getToken: () => HARDCODED.token,
+        baseURL: HARDCODED.baseURL,
+        getToken: () => HARDCODED.token,
       });
 
       console.log(await eClient.carriers.list());
 
       window.eSDK.onboardUser(
-          {
-              onCompleteOnboarding: () => {
-                  alert("Onboarding Complete!");
-                  window.eSDK.closeSidePanel();
-              },
+        {
+          onCompleteOnboarding: () => {
+            alert('Onboarding Complete!');
+            window.eSDK.closeSidePanel();
           },
-          {},
-          {
-              closeButtonTooltip: "Close",
-              onClickClose: () => {
-                  alert("side panel closed!");
-                  window.eSDK.closeSidePanel();
-              },
-              title: "Onboarding",
-          }
+        },
+        {},
+        {
+          closeButtonTooltip: 'Close',
+          onClickClose: () => {
+            alert('side panel closed!');
+            window.eSDK.closeSidePanel();
+          },
+          title: 'Onboarding',
+        }
       );
-  </script>
-</head>
-<body>
+    </script>
+  </head>
+  <body>
     <h1>Plain</h1>
     <p>Plain text</p>
-</body>
+  </body>
 </html>
